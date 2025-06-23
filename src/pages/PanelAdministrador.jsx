@@ -24,7 +24,7 @@ export const PanelAdministrador = () => {
       hasSubmenu: true,
       submenu: [
         { id: 'products-list', name: 'Ver Productos', icon: '📋', path: '/productos' },
-        { id: 'products-create', name: 'Crear Producto', icon: '➕' },
+        { id: 'products-create', name: 'Movimiento', icon: '📦', path: '/movimiento' },
         { id: 'products-categories', name: 'Categorías', icon: '🏷️' },
         { id: 'products-inventory', name: 'Inventario', icon: '📊' }
       ]
@@ -57,6 +57,8 @@ export const PanelAdministrador = () => {
     if (subItem.path) {
       navigate(subItem.path);
     }
+    // Cerrar todos los submenus después de navegar
+    setExpandedMenus({});
   };
 
   const getCurrentSectionName = () => {
@@ -75,6 +77,9 @@ export const PanelAdministrador = () => {
       }
     }
     
+    // Casos especiales para rutas conocidas
+    if (currentPath === '/movimiento') return 'Movimiento Inventario';
+    
     return 'Dashboard';
   };
 
@@ -84,6 +89,12 @@ export const PanelAdministrador = () => {
 
   const isSubmenuActive = (subItem) => {
     return location.pathname === subItem.path;
+  };
+
+  // Verificar si un menu padre debe estar activo basado en sus submenus
+  const isParentMenuActive = (item) => {
+    if (!item.submenu) return false;
+    return item.submenu.some(subItem => location.pathname === subItem.path);
   };
 
   return (
@@ -104,7 +115,7 @@ export const PanelAdministrador = () => {
               <button
                 onClick={() => handleMenuClick(item)}
                 className={`w-full flex items-center justify-between px-6 py-3 text-left hover:bg-blue-50 transition-colors ${
-                  isActive(item) ? 'bg-blue-100 border-r-4 border-blue-500 text-blue-700' : 'text-gray-700'
+                  isActive(item) || isParentMenuActive(item) ? 'bg-blue-100 border-r-4 border-blue-500 text-blue-700' : 'text-gray-700'
                 }`}
               >
                 <div className="flex items-center">
@@ -119,18 +130,22 @@ export const PanelAdministrador = () => {
               </button>
 
               {/* Submenu */}
-              {item.hasSubmenu && expandedMenus[item.id] && (
+              {item.hasSubmenu && (expandedMenus[item.id] || isParentMenuActive(item)) && (
                 <div className="bg-gray-50">
                   {item.submenu.map((subItem) => (
                     <button
                       key={subItem.id}
                       onClick={() => handleSubmenuClick(subItem)}
                       className={`w-full flex items-center px-12 py-2 text-left hover:bg-blue-50 transition-colors text-sm ${
-                        isSubmenuActive(subItem) ? 'bg-blue-100 text-blue-700' : 'text-gray-600'
+                        isSubmenuActive(subItem) ? 'bg-blue-100 text-blue-700 font-medium' : 'text-gray-600'
                       }`}
+                      disabled={!subItem.path}
                     >
                       <span className="text-base mr-3">{subItem.icon}</span>
                       <span>{subItem.name}</span>
+                      {!subItem.path && (
+                        <span className="ml-auto text-xs text-gray-400">(Próximamente)</span>
+                      )}
                     </button>
                   ))}
                 </div>

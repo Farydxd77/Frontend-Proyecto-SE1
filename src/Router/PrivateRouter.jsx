@@ -4,6 +4,7 @@ import { PanelAdministrador } from '../pages/PanelAdministrador';
 import { FormularioUsuario } from '../components/Dashboard/FormularioUsuario';
 import { FormularioProducto } from '../components/Dashboard/FormularioProducto';
 import { DashboardContent } from '../components/Dashboard/DashboardContainer';
+import { GestionMovimiento } from '../components/Dashboard/GestionMovimiento';
 
 
 export const PrivateRouter = () => {
@@ -15,6 +16,7 @@ export const PrivateRouter = () => {
         <Route path="usuario" element={<FormularioUsuario />} />
         <Route path="productos" element={<FormularioProducto />} />
         <Route path="dashboard" element={<DashboardContent />} />
+         <Route path="movimiento" element={<GestionMovimiento />} />
       </Route>
       
       {/* Ruta por defecto */}
