@@ -14,6 +14,10 @@ export const GestionProductos = () => {
   const [categorias, setCategorias] = useState([]);
   const [loadingCategorias, setLoadingCategorias] = useState(true);
 
+  // Estados para sizes
+  const [sizes, setSizes] = useState([]);
+  const [loadingSizes, setLoadingSizes] = useState(true);
+
   // Estados para modales
   const [showProductoModal, setShowProductoModal] = useState(false);
   const [showDetalleModal, setShowDetalleModal] = useState(false);
@@ -38,10 +42,19 @@ export const GestionProductos = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [selectedSizes, setSelectedSizes] = useState([]);
 
-  // Cargar productos y categorías al montar el componente
+  // Estados para el formulario de variedad
+  const [variedadForm, setVariedadForm] = useState({
+    selectedSizeId: '',
+    color: '#000000',
+    quantity: '',
+    price: ''
+  });
+
+  // Cargar productos, categorías y sizes al montar el componente
   useEffect(() => {
     cargarProductos();
     cargarCategorias();
+    cargarSizes();
   }, []);
 
   const cargarProductos = async () => {
@@ -124,6 +137,25 @@ export const GestionProductos = () => {
     }
   };
 
+  const cargarSizes = async () => {
+    try {
+      setLoadingSizes(true);
+      const response = await fetchConToken('size');
+      console.log('Sizes desde API:', response);
+      
+      if (response && Array.isArray(response)) {
+        setSizes(response);
+      } else {
+        setSizes([]);
+      }
+    } catch (error) {
+      console.error('Error al cargar sizes:', error);
+      setSizes([]);
+    } finally {
+      setLoadingSizes(false);
+    }
+  };
+
   // Función para subir imagen a Cloudinary
   const subirImagenCloudinary = async (file) => {
     const formData = new FormData();
@@ -189,19 +221,26 @@ export const GestionProductos = () => {
   };
 
   // Manejar selección de sizes
-  const handleSizeSelection = (sizeId, sizeLabel, color = '', quantity = 0, price = 0) => {
+  const handleSizeSelection = () => {
+    const { selectedSizeId, color, quantity, price } = variedadForm;
+    
+    if (!selectedSizeId || !color || !quantity || !price) {
+      alert('Por favor completa todos los campos de la variedad');
+      return;
+    }
+
     const newSize = {
-      size: sizeId,
+      size: selectedSizeId,
       color: color,
       quantity: parseInt(quantity) || 0,
       price: parseFloat(price) || 0
     };
 
     setSelectedSizes(prev => {
-      const exists = prev.find(s => s.size === sizeId && s.color === color);
+      const exists = prev.find(s => s.size === selectedSizeId && s.color === color);
       if (exists) {
         return prev.map(s => 
-          s.size === sizeId && s.color === color ? newSize : s
+          s.size === selectedSizeId && s.color === color ? newSize : s
         );
       } else {
         return [...prev, newSize];
@@ -210,8 +249,16 @@ export const GestionProductos = () => {
 
     setProductoForm(prev => ({
       ...prev,
-      productSizes: [...prev.productSizes.filter(s => !(s.size === sizeId && s.color === color)), newSize]
+      productSizes: [...prev.productSizes.filter(s => !(s.size === selectedSizeId && s.color === color)), newSize]
     }));
+
+    // Limpiar formulario de variedad
+    setVariedadForm({
+      selectedSizeId: '',
+      color: '#000000',
+      quantity: '',
+      price: ''
+    });
   };
 
   // Eliminar size seleccionado
@@ -262,6 +309,12 @@ export const GestionProductos = () => {
       isActive: true
     });
     setSelectedSizes([]);
+    setVariedadForm({
+      selectedSizeId: '',
+      color: '#000000',
+      quantity: '',
+      price: ''
+    });
     setEditingProducto(null);
     setShowProductoModal(false);
   };
@@ -294,6 +347,11 @@ export const GestionProductos = () => {
   const verDetalleProducto = (producto) => {
     setProductoDetalle(producto);
     setShowDetalleModal(true);
+  };
+
+  const getSizeNameById = (sizeId) => {
+    const size = sizes.find(s => s.id === sizeId);
+    return size ? size.name : 'Desconocido';
   };
 
   const productosFiltrados = (productos || []).filter(producto => 
@@ -428,9 +486,14 @@ export const GestionProductos = () => {
                       <td className="px-4 py-4">
                         <div className="flex flex-wrap gap-1 max-w-[150px]">
                           {(producto.colores || []).map((color, index) => (
-                            <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded whitespace-nowrap">
-                              {color}
-                            </span>
+                            <div key={index} className="flex items-center gap-1">
+                              <div 
+                                className="w-4 h-4 rounded border border-gray-300"
+                                style={{ backgroundColor: color }}
+                                title={color}
+                              ></div>
+                              <span className="text-xs text-gray-600">{color}</span>
+                            </div>
                           ))}
                           {(!producto.colores || producto.colores.length === 0) && (
                             <span className="text-gray-400 text-xs">Sin colores</span>
@@ -441,8 +504,14 @@ export const GestionProductos = () => {
                         <div className="space-y-1 max-w-[200px]">
                           {(producto.variedades || []).slice(0, 2).map((variedad, index) => (
                             <div key={index} className="text-xs bg-gray-50 p-1 rounded">
-                              <div className="font-medium text-gray-800 truncate" title={variedad.color}>
-                                {variedad.color || 'Sin color'}
+                              <div className="flex items-center gap-1 mb-1">
+                                <div 
+                                  className="w-3 h-3 rounded border"
+                                  style={{ backgroundColor: variedad.color }}
+                                ></div>
+                                <span className="font-medium text-gray-800 truncate" title={variedad.color}>
+                                  {variedad.color || 'Sin color'}
+                                </span>
                               </div>
                               <div className="flex justify-between items-center">
                                 <span className="text-green-600 font-medium">
@@ -653,99 +722,133 @@ export const GestionProductos = () => {
                   )}
                 </div>
 
-                {/* Sección de sizes */}
+                {/* Sección de sizes y variedades */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Tallas y Variedades</label>
                   
-                  <div className="border border-gray-300 rounded-lg p-3">
-                    <div className="grid grid-cols-3 gap-2 mb-3">
+                  <div className="border border-gray-300 rounded-lg p-4 space-y-3">
+                    {/* Selector de talla */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">Talla</label>
                       <select 
-                        id="sizeSelect"
-                        className="px-2 py-1 border border-gray-300 rounded text-sm"
+                        value={variedadForm.selectedSizeId}
+                        onChange={(e) => setVariedadForm({...variedadForm, selectedSizeId: e.target.value})}
+                        className="w-full px-2 py-2 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-green-500"
+                        disabled={loadingSizes}
                       >
-                        <option value="">Seleccionar talla</option>
-                        <option value="550e8400-e29b-41d4-a716-446655440001">XS</option>
-                        <option value="550e8400-e29b-41d4-a716-446655440002">S</option>
-                        <option value="550e8400-e29b-41d4-a716-446655440003">M</option>
-                        <option value="550e8400-e29b-41d4-a716-446655440004">L</option>
-                        <option value="550e8400-e29b-41d4-a716-446655440005">XL</option>
-                        <option value="550e8400-e29b-41d4-a716-446655440006">XXL</option>
+                        <option value="">
+                          {loadingSizes ? 'Cargando tallas...' : 'Seleccionar talla'}
+                        </option>
+                        {sizes.map(size => (
+                          <option key={size.id} value={size.id}>
+                            {size.name}
+                          </option>
+                        ))}
                       </select>
-                      <input 
-                        type="text" 
-                        placeholder="Color"
-                        id="colorInput"
-                        className="px-2 py-1 border border-gray-300 rounded text-sm"
-                      />
-                      <div className="grid grid-cols-2 gap-1">
+                      {variedadForm.selectedSizeId && (
+                        <div className="mt-1 text-xs text-gray-500 bg-gray-50 p-1 rounded">
+                          ID: {variedadForm.selectedSizeId}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Selector de color */}
+                    <div>
+                      <label className="block text-xs font-medium text-gray-600 mb-1">Color</label>
+                      <div className="flex items-center gap-2">
+                        <input 
+                          type="color" 
+                          value={variedadForm.color}
+                          onChange={(e) => setVariedadForm({...variedadForm, color: e.target.value})}
+                          className="w-12 h-8 border border-gray-300 rounded cursor-pointer"
+                        />
+                        <input 
+                          type="text" 
+                          value={variedadForm.color}
+                          onChange={(e) => setVariedadForm({...variedadForm, color: e.target.value})}
+                          className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-green-500"
+                          placeholder="#000000"
+                          pattern="^#[0-9A-Fa-f]{6}$"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Cantidad y precio */}
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Cantidad</label>
                         <input 
                           type="number" 
-                          placeholder="Cantidad"
-                          id="quantityInput"
-                          className="px-2 py-1 border border-gray-300 rounded text-sm"
+                          min="0"
+                          value={variedadForm.quantity}
+                          onChange={(e) => setVariedadForm({...variedadForm, quantity: e.target.value})}
+                          className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-green-500"
+                          placeholder="0"
                         />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">Precio</label>
                         <input 
                           type="number" 
                           step="0.01"
-                          placeholder="Precio"
-                          id="priceInput"
-                          className="px-2 py-1 border border-gray-300 rounded text-sm"
+                          min="0"
+                          value={variedadForm.price}
+                          onChange={(e) => setVariedadForm({...variedadForm, price: e.target.value})}
+                          className="w-full px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-green-500"
+                          placeholder="0.00"
                         />
                       </div>
                     </div>
                     
                     <button
                       type="button"
-                      onClick={() => {
-                        const sizeSelect = document.getElementById('sizeSelect');
-                        const colorInput = document.getElementById('colorInput');
-                        const quantityInput = document.getElementById('quantityInput');
-                        const priceInput = document.getElementById('priceInput');
-                        
-                        if (sizeSelect.value && colorInput.value) {
-                          const sizeLabel = sizeSelect.options[sizeSelect.selectedIndex].text;
-                          handleSizeSelection(
-                            sizeSelect.value,
-                            sizeLabel,
-                            colorInput.value,
-                            quantityInput.value,
-                            priceInput.value
-                          );
-                          
-                          // Limpiar inputs
-                          sizeSelect.value = '';
-                          colorInput.value = '';
-                          quantityInput.value = '';
-                          priceInput.value = '';
-                        }
-                      }}
-                      className="w-full bg-blue-500 text-white py-1 rounded text-sm hover:bg-blue-600"
+                      onClick={handleSizeSelection}
+                      disabled={!variedadForm.selectedSizeId || !variedadForm.color || !variedadForm.quantity || !variedadForm.price}
+                      className="w-full bg-blue-500 text-white py-2 rounded text-sm hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
                     >
                       Agregar Variedad
                     </button>
                   </div>
 
-                  {/* Sizes seleccionados */}
+                  {/* Variedades agregadas */}
                   {selectedSizes.length > 0 && (
-                    <div className="mt-3 space-y-2">
-                      <p className="text-sm font-medium text-gray-700">Variedades agregadas:</p>
-                      {selectedSizes.map((size, index) => (
-                        <div key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded">
-                          <div className="text-sm">
-                            <span className="font-medium">{size.size.substring(0, 8)}...</span> - 
-                            <span className="text-blue-600 ml-1">{size.color}</span> - 
-                            <span className="text-green-600 ml-1">${size.price}</span> - 
-                            <span className="text-gray-600 ml-1">({size.quantity}u)</span>
+                    <div className="mt-4 space-y-2">
+                      <p className="text-sm font-medium text-gray-700">Variedades agregadas ({selectedSizes.length}):</p>
+                      <div className="max-h-40 overflow-y-auto space-y-2">
+                        {selectedSizes.map((size, index) => (
+                          <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded border">
+                            <div className="flex items-center gap-3 flex-1">
+                              <div className="text-sm">
+                                <div className="font-medium text-gray-800">
+                                  {getSizeNameById(size.size)}
+                                </div>
+                                <div className="text-xs text-gray-500">
+                                  ID: {size.size.substring(0, 8)}...
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <div 
+                                  className="w-6 h-6 rounded border border-gray-300"
+                                  style={{ backgroundColor: size.color }}
+                                  title={size.color}
+                                ></div>
+                                <span className="text-xs text-gray-600">{size.color}</span>
+                              </div>
+                              <div className="text-sm">
+                                <span className="text-green-600 font-medium">${size.price}</span>
+                                <span className="text-gray-600 ml-2">({size.quantity}u)</span>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => eliminarSize(size.size, size.color)}
+                              className="text-red-500 hover:text-red-700 hover:bg-red-50 p-1 rounded transition-colors"
+                            >
+                              🗑️
+                            </button>
                           </div>
-                          <button
-                            type="button"
-                            onClick={() => eliminarSize(size.size, size.color)}
-                            className="text-red-500 hover:text-red-700 ml-2"
-                          >
-                            ✕
-                          </button>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -757,14 +860,14 @@ export const GestionProductos = () => {
                 type="button"
                 onClick={handleProductoSubmit}
                 disabled={!productoForm.name || !productoForm.categoryId || !productoForm.subcategory || productoForm.imageUrls.length === 0 || selectedSizes.length === 0}
-                className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="flex-1 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
               >
                 {editingProducto ? 'Actualizar' : 'Crear'} Producto
               </button>
               <button
                 type="button"
                 onClick={resetProductoForm}
-                className="flex-1 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+                className="flex-1 px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
               >
                 Cancelar
               </button>
@@ -848,9 +951,16 @@ export const GestionProductos = () => {
                     {(productoDetalle.variedades || []).length > 0 ? (productoDetalle.variedades || []).map((variedad, index) => (
                       <tr key={index} className="hover:bg-gray-50">
                         <td className="px-4 py-2">
-                          <span className="px-2 py-1 bg-blue-100 text-blue-800 text-sm rounded">
-                            {variedad.color || 'Sin color'}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <div 
+                              className="w-6 h-6 rounded border border-gray-300"
+                              style={{ backgroundColor: variedad.color }}
+                              title={variedad.color}
+                            ></div>
+                            <span className="text-sm">
+                              {variedad.color || 'Sin color'}
+                            </span>
+                          </div>
                         </td>
                         <td className="px-4 py-2 font-medium text-green-600">
                           ${(variedad.price || 0).toFixed(2)}
@@ -883,7 +993,7 @@ export const GestionProductos = () => {
             <div className="flex justify-end mt-6">
               <button
                 onClick={() => setShowDetalleModal(false)}
-                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
               >
                 Cerrar
               </button>
