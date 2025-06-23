@@ -6,6 +6,7 @@ import { AuthContext } from '../auth/AuthContext'
 import { AppRouterPrivate } from './AppRouterPrivate'
 import { AuthRouter } from './AuthRouter'
 import { PanelAdministrador } from '../pages/PanelAdministrador'
+import { PrivateRouter } from './PrivateRouter'
 export const AppRouter = () => {
 
   const { auth } = useContext( AuthContext );
@@ -22,9 +23,9 @@ export const AppRouter = () => {
                <AuthRouter />
              </AppRouterPublic>
            } />
-            <Route path="/" element={
+            <Route path="/*" element={
              <AppRouterPrivate isAuthenticated={auth.logged}>
-               <PanelAdministrador />
+               <PrivateRouter/>
              </AppRouterPrivate>
            } />
 
