@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { AuthContext } from '../auth/AuthContext';
 
 export const PanelAdministrador = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [expandedMenus, setExpandedMenus] = useState({});
-
+ const { logout} = useContext(AuthContext);
   const menuItems = [
     { id: 'dashboard', name: 'Dashboard', icon: '📊', path: '/' },
     { 
@@ -35,6 +36,10 @@ export const PanelAdministrador = () => {
     // { id: 'reports', name: 'Reportes', icon: '📋' },
     // { id: 'notifications', name: 'Notificaciones', icon: '🔔' },
   ];
+
+  const cerrar = () => {
+    logout();
+  }
 
   const handleMenuClick = (item) => {
     if (item.hasSubmenu) {
@@ -182,7 +187,9 @@ export const PanelAdministrador = () => {
                 <span className="text-xl">🔔</span>
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">3</span>
               </button>
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+              <button
+               onClick={cerrar}
+               className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
                 Cerrar Sesión
               </button>
             </div>

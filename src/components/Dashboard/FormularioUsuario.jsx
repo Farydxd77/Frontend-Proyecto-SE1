@@ -63,8 +63,8 @@ export const FormularioUsuario = () => {
       setUsuarios(usuariosAdaptados);
       
     } catch (error) {
-      console.error('Error al cargar usuarios:', error);
-      setErrorUsuarios('Error al cargar los usuarios');
+      console.error('Error al cargar usuarios no tiene permiso:', error);
+      setErrorUsuarios('Error al cargar los usuarios no tiene permisos');
       
       // Usuarios por defecto en caso de error - CORREGIDO: estados como boolean
       setUsuarios([
@@ -100,8 +100,8 @@ export const FormularioUsuario = () => {
         setErrorRoles('Formato de respuesta inesperado');
       }
     } catch (error) {
-      console.error('Error al cargar roles:', error);
-      setErrorRoles('Error al cargar los roles');
+      console.error('Error al cargar roles no tiene permisos:', error);
+      setErrorRoles('Error al cargar los roles no tiene permisos');
       
       // Mantener roles por defecto en caso de error
       setRoles([
@@ -142,8 +142,8 @@ export const FormularioUsuario = () => {
       }
       resetUserForm();
     } catch (error) {
-      console.error('Error al crear usuario:', error);
-      alert('Error al crear el usuario. Por favor intenta nuevamente.');
+      console.error('Error al crear usuario no tiene permisos:', error);
+      alert('Error al crear el usuario. Por favor intenta nuevamente. no tiene permisos');
     }
   };
 
@@ -194,8 +194,8 @@ export const FormularioUsuario = () => {
       }
       resetRoleForm();
     } catch (error) {
-      console.error('Error al crear rol:', error);
-      alert('Error al crear el rol. Por favor intenta nuevamente.');
+      console.error('Error al crear rol no tiene permisos:', error);
+      alert('Error al crear el rol. Por favor intenta nuevamente no tiene permisos.');
     }
   };
 

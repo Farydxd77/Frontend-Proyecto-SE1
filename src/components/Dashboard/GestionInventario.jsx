@@ -31,8 +31,8 @@ export const GestionInventario = () => {
       setInventario(response);
       
     } catch (error) {
-      console.error('Error al cargar inventario:', error);
-      setErrorInventario('Error al cargar el inventario');
+      console.error('Error al cargar inventario no tiene permisos:', error);
+      setErrorInventario('Error al cargar el inventario no tiene permisos');
       setInventario([]);
     } finally {
       setLoadingInventario(false);

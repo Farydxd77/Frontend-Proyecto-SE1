@@ -83,8 +83,8 @@ export const GestionMovimiento = () => {
       }
       
     } catch (error) {
-      console.error('Error al cargar movimientos:', error);
-      setErrorMovimientos('Error al cargar los movimientos');
+      console.error('Error al cargar movimientos no tinene permisos:', error);
+      setErrorMovimientos('Error al cargar los movimientos no tinene permisos');
       setMovimientos([]);
     } finally {
       setLoadingMovimientos(false);
@@ -103,7 +103,7 @@ export const GestionMovimiento = () => {
         setProveedores([]);
       }
     } catch (error) {
-      console.error('Error al cargar proveedores:', error);
+      console.error('Error al cargar proveedores no tinene permisos:', error);
       setProveedores([]);
     } finally {
       setLoadingProveedores(false);
@@ -233,8 +233,8 @@ export const GestionMovimiento = () => {
       await cargarMovimientos();
       
     } catch (error) {
-      console.error('Error al crear movimiento:', error);
-      alert('Error al crear el movimiento. Por favor intenta nuevamente.');
+      console.error('Error al crear movimiento no tinene permisos:', error);
+      alert('Error al crear el movimiento. Por favor intenta nuevamente no tinene permisos.');
     }
   };
 

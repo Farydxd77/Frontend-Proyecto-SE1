@@ -38,8 +38,8 @@ export const GestionCategorias = () => {
       setCategorias(response);
       
     } catch (error) {
-      console.error('Error al cargar categorías:', error);
-      setErrorCategorias('Error al cargar las categorías');
+      console.error('Error al cargar categorías no tiene permisos:', error);
+      setErrorCategorias('Error al cargar las categorías no tiene permisos');
       setCategorias([]);
     } finally {
       setLoadingCategorias(false);
@@ -53,7 +53,7 @@ export const GestionCategorias = () => {
       
       // Validaciones
       if (!formCategoria.name.trim()) {
-        alert('El nombre de la categoría es obligatorio');
+        alert('El nombre de la categoría es obligatorio ');
         return;
       }
       
@@ -84,8 +84,8 @@ export const GestionCategorias = () => {
       alert('Categoría creada exitosamente');
       
     } catch (error) {
-      console.error('Error al crear categoría:', error);
-      alert('Error al crear la categoría. Por favor intenta nuevamente.');
+      console.error('Error al crear categoría no tiene permisos:', error);
+      alert('Error al crear la categoría. Por favor intenta nuevamente no tiene permisos.');
     } finally {
       setGuardandoCategoria(false);
     }

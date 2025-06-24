@@ -110,8 +110,8 @@ export const GestionProductos = () => {
       console.log('Productos adaptados:', productosAdaptados);
       
     } catch (error) {
-      console.error('Error al cargar productos:', error);
-      setErrorProductos('Error al cargar los productos');
+      console.error('Error al cargar productos no tinene permisos:', error);
+      setErrorProductos('Error al cargar los productos no tinene permisos');
       setProductos([]);
     } finally {
       setLoadingProductos(false);
@@ -130,7 +130,7 @@ export const GestionProductos = () => {
         setCategorias([]);
       }
     } catch (error) {
-      console.error('Error al cargar categorías:', error);
+      console.error('Error al cargar categorías no tinene permisos:', error);
       setCategorias([]);
     } finally {
       setLoadingCategorias(false);

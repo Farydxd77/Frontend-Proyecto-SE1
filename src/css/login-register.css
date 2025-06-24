@@ -1,111 +1,129 @@
+/* ==========================================
+   MODERN LOGIN CSS - DISEÑO MEJORADO
+   ========================================== */
 
 * {
-	margin: 0px; 
-	padding: 0px; 
-	box-sizing: border-box;
+  margin: 0px; 
+  padding: 0px; 
+  box-sizing: border-box;
 }
 
 body, html {
-	height: 100%;
+  height: 100%;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow-x: hidden;
 }
 
-/*---------------------------------------------*/
+/* ==========================================
+   ELEMENTOS BASE MEJORADOS
+   ========================================== */
+
 a {
-	font-size: 14px;
-	line-height: 1.7;
-	color: #666666;
-	margin: 0px;
-	transition: all 0.4s;
-	-webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #6b7280;
+  margin: 0px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
 }
 
 a:focus {
-	outline: none !important;
+  outline: none !important;
 }
 
 a:hover {
-	text-decoration: none;
-  color: #403866;
+  color: #4f46e5;
+  transform: translateY(-1px);
 }
 
-/*---------------------------------------------*/
-h1,h2,h3,h4,h5,h6 {
-	margin: 0px;
+h1, h2, h3, h4, h5, h6 {
+  margin: 0px;
+  font-weight: 600;
+  color: #1f2937;
 }
 
 p {
-	font-size: 14px;
-	line-height: 1.7;
-	color: #666666;
-	margin: 0px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #6b7280;
+  margin: 0px;
 }
 
 ul, li {
-	margin: 0px;
-	list-style-type: none;
+  margin: 0px;
+  list-style-type: none;
 }
 
+/* ==========================================
+   INPUTS Y FORMULARIOS MODERNOS
+   ========================================== */
 
-/*---------------------------------------------*/
-input {
-	outline: none;
-	border: none;
-}
-
-textarea {
+input, textarea {
   outline: none;
   border: none;
+  font-family: inherit;
 }
 
 textarea:focus, input:focus {
   border-color: transparent !important;
 }
 
-input::-webkit-input-placeholder { color: #8f8fa1;}
-input:-moz-placeholder { color: #8f8fa1;}
-input::-moz-placeholder { color: #8f8fa1;}
-input:-ms-input-placeholder { color: #8f8fa1;}
+input::-webkit-input-placeholder { 
+  color: #9ca3af;
+  font-weight: 400;
+}
+input:-moz-placeholder { color: #9ca3af; }
+input::-moz-placeholder { color: #9ca3af; }
+input:-ms-input-placeholder { color: #9ca3af; }
 
-textarea::-webkit-input-placeholder { color: #8f8fa1;}
-textarea:-moz-placeholder { color: #8f8fa1;}
-textarea::-moz-placeholder { color: #8f8fa1;}
-textarea:-ms-input-placeholder { color: #8f8fa1;}
+textarea::-webkit-input-placeholder { color: #9ca3af; }
+textarea:-moz-placeholder { color: #9ca3af; }
+textarea::-moz-placeholder { color: #9ca3af; }
+textarea:-ms-input-placeholder { color: #9ca3af; }
 
 label {
   display: block;
   margin: 0;
+  font-weight: 500;
+  color: #374151;
 }
 
-/*---------------------------------------------*/
+/* ==========================================
+   BOTONES MODERNOS
+   ========================================== */
+
 button {
-	outline: none !important;
-	border: none;
-	background: transparent;
+  outline: none !important;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 button:hover {
-	cursor: pointer;
+  transform: translateY(-2px);
 }
 
 iframe {
-	border: none !important;
+  border: none !important;
 }
 
+/* ==========================================
+   UTILIDADES
+   ========================================== */
 
-/*//////////////////////////////////////////////////////////////////
-[ Utility ]*/
 .txt1 {
   font-size: 16px;
-  color: #827ffe;
+  color: #4f46e5;
   line-height: 1.4;
+  font-weight: 500;
 }
 
-
-
-/*//////////////////////////////////////////////////////////////////
-[ login ]*/
+/* ==========================================
+   CONTENEDOR PRINCIPAL MEJORADO
+   ========================================== */
 
 .limiter {
   width: 100%;
@@ -115,225 +133,333 @@ iframe {
 .container-login100 {
   width: 100%;  
   min-height: 100vh;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+  padding: 20px;
   
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;;
-}
-
-
-.wrap-login100 {
-  width: 390px;
-  background: #fff;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   position: relative;
 }
 
+/* Efectos de fondo animados */
+.container-login100::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="a" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="%23ffffff" stop-opacity=".1"/><stop offset="1" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="20" cy="20" r="10" fill="url(%23a)"/><circle cx="80" cy="80" r="15" fill="url(%23a)"/><circle cx="40" cy="70" r="8" fill="url(%23a)"/><circle cx="90" cy="30" r="12" fill="url(%23a)"/><circle cx="10" cy="90" r="6" fill="url(%23a)"/></svg>');
+  opacity: 0.1;
+  animation: float 20s infinite linear;
+}
 
-/*==================================================================
-[ Form ]*/
+@keyframes float {
+  0% { transform: translateX(0) translateY(0) rotate(0deg); }
+  33% { transform: translateX(30px) translateY(-30px) rotate(120deg); }
+  66% { transform: translateX(-20px) translateY(20px) rotate(240deg); }
+  100% { transform: translateX(0) translateY(0) rotate(360deg); }
+}
+
+/* ==========================================
+   TARJETA DE LOGIN MEJORADA
+   ========================================== */
+
+.wrap-login100 {
+  width: 420px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  position: relative;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wrap-login100:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 35px 70px -12px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.wrap-login100::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+}
+
+/* ==========================================
+   FORMULARIO MEJORADO
+   ========================================== */
 
 .login100-form {
   width: 100%;
+  padding: 40px 35px 35px 35px;
 }
 
 .login100-form-title {
-  font-size: 30px;
-  color: #403866;
+  font-size: 32px;
+  color: #1f2937;
   line-height: 1.2;
-  text-transform: uppercase;
   text-align: center;
-
   width: 100%;
   display: block;
+  margin-bottom: 15px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-
-
-/*------------------------------------------------------------------
-[ Input ]*/
+/* ==========================================
+   INPUTS MEJORADOS
+   ========================================== */
 
 .wrap-input100 {
   width: 100%;
   position: relative;
-  background-color: #e6e6e6;
-  border: 1px solid transparent;
-  border-radius: 3px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  margin-bottom: 25px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 
+.wrap-input100:hover {
+  border-color: #cbd5e1;
+  background: #f1f5f9;
+}
 
-/*---------------------------------------------*/
+.wrap-input100:focus-within {
+  border-color: #4f46e5;
+  background: #ffffff;
+  box-shadow: 
+    0 0 0 4px rgba(79, 70, 229, 0.1),
+    0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
 .input100 {
-  color: #403866;
+  color: #1f2937;
   line-height: 1.2;
-  font-size: 18px;
-
+  font-size: 16px;
+  font-weight: 500;
   display: block;
   width: 100%;
   background: transparent;
-  height: 62px;
-  padding: 0 20px 0 38px;
+  height: 60px;
+  padding: 0 20px 0 50px;
+  transition: all 0.3s ease;
 }
-/*------------------------------------------------------------------
-[ Focus Input ]*/
+
+.input100::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+/* Iconos en los inputs */
+.wrap-input100::before {
+  content: '';
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.wrap-input100:focus-within::before {
+  opacity: 0.8;
+}
+
+/* ==========================================
+   EFECTOS DE FOCUS MEJORADOS
+   ========================================== */
 
 .focus-input100 {
   position: absolute;
   display: block;
-  width: calc(100% + 2px);
-  height: calc(100% + 2px);
-  top: -1px;
-  left: -1px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   pointer-events: none;
-  border: 1px solid #827ffe;
-  border-radius: 3px;
-
+  border: 3px solid #4f46e5;
+  border-radius: 16px;
   visibility: hidden;
   opacity: 0;
-
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
-
-  -webkit-transform: scaleX(1.1) scaleY(1.3);
-  -moz-transform: scaleX(1.1) scaleY(1.3);
-  -ms-transform: scaleX(1.1) scaleY(1.3);
-  -o-transform: scaleX(1.1) scaleY(1.3);
-  transform: scaleX(1.1) scaleY(1.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0.9);
 }
 
 .input100:focus + .focus-input100 {
   visibility: visible;
   opacity: 1;
-
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
   transform: scale(1);
 }
 
 .eff-focus-selection {
   visibility: visible;
   opacity: 1;
-
-  -webkit-transform: scale(1);
-  -moz-transform: scale(1);
-  -ms-transform: scale(1);
-  -o-transform: scale(1);
   transform: scale(1);
 }
 
-
-/*==================================================================
-[ Restyle Checkbox ]*/
+/* ==========================================
+   CHECKBOX MEJORADO
+   ========================================== */
 
 .input-checkbox100 {
   display: none;
 }
 
 .label-checkbox100 {
-  font-size: 16px;
-  color: #999999;
-  line-height: 1.2;
-
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
   display: block;
   position: relative;
-  padding-left: 26px;
+  padding-left: 35px;
   cursor: pointer;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.label-checkbox100:hover {
+  color: #4f46e5;
 }
 
 .label-checkbox100::before {
-  content: "\f00c";
-  font-family: FontAwesome;
-  font-size: 13px;
-  color: transparent;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  content: "";
+  display: block;
   position: absolute;
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
-  background: #fff;
-  border: 2px solid #827ffe;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 2px solid #d1d5db;
   left: 0;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
   transform: translateY(-50%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.label-checkbox100::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 6px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  left: 7px;
+  top: 3px;
+  transform: rotate(45deg) scale(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .input-checkbox100:checked + .label-checkbox100::before {
-  color: #827ffe;
+  background: #4f46e5;
+  border-color: #4f46e5;
+  transform: translateY(-50%) scale(1.1);
 }
 
+.input-checkbox100:checked + .label-checkbox100::after {
+  transform: rotate(45deg) scale(1);
+}
 
-/*------------------------------------------------------------------
-[ Button ]*/
+/* ==========================================
+   BOTÓN PRINCIPAL MEJORADO
+   ========================================== */
+
 .container-login100-form-btn {
   width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 30px;
 }
 
 .login100-form-btn {
   font-size: 16px;
-  color: #fff;
+  color: #ffffff;
   line-height: 1.2;
-  text-transform: uppercase;
-
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 30px;
   width: 100%;
-  height: 62px;
-  background-color: #827ffe;
-  border-radius: 3px;
+  height: 60px;
+  
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  box-shadow: 
+    0 10px 25px -5px rgba(79, 70, 229, 0.4),
+    0 4px 10px -2px rgba(0, 0, 0, 0.1);
+}
 
-  -webkit-transition: all 0.4s;
-  -o-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  transition: all 0.4s;
+.login100-form-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
 }
 
 .login100-form-btn:hover {
-  background-color: #403866;
+  transform: translateY(-3px);
+  box-shadow: 
+    0 20px 40px -5px rgba(79, 70, 229, 0.5),
+    0 10px 20px -2px rgba(0, 0, 0, 0.2);
 }
 
+.login100-form-btn:hover::before {
+  left: 100%;
+}
+
+.login100-form-btn:active {
+  transform: translateY(-1px);
+}
 
 .login100-form-btn:disabled {
-  background-color: grey;
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-/*------------------------------------------------------------------
-[ Alert validate ]*/
+.login100-form-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==========================================
+   VALIDACIÓN MEJORADA
+   ========================================== */
 
 .validate-input {
   position: relative;
@@ -343,61 +469,171 @@ iframe {
   content: attr(data-validate);
   position: absolute;
   max-width: 70%;
-  background-color: #fff;
-  border: 1px solid #c80000;
-  border-radius: 3px;
-  padding: 4px 25px 5px 10px;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 8px 15px;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  right: 12px;
+  right: 15px;
   pointer-events: none;
-
-  color: #c80000;
-  font-size: 14px;
+  
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 500;
   line-height: 1.4;
   text-align: left;
-
+  
   visibility: hidden;
   opacity: 0;
-
-  -webkit-transition: opacity 0.4s;
-  -o-transition: opacity 0.4s;
-  -moz-transition: opacity 0.4s;
-  transition: opacity 0.4s;
+  
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
 }
 
 .alert-validate::after {
-  content: "\f12a";
-  font-family: FontAwesome;
+  content: "⚠";
   display: block;
   position: absolute;
-  color: #c80000;
-  font-size: 18px;
+  color: #dc2626;
+  font-size: 16px;
+  font-weight: bold;
   top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  right: 18px;
+  right: 20px;
+  z-index: 5;
 }
 
-.alert-validate:hover:before {
+.alert-validate:hover::before {
   visibility: visible;
   opacity: 1;
+  transform: translateY(-50%) translateX(-5px);
 }
 
-@media (max-width: 992px) {
+/* ==========================================
+   RESPONSIVE MEJORADO
+   ========================================== */
+
+@media (max-width: 768px) {
+  .container-login100 {
+    padding: 15px;
+  }
+  
+  .wrap-login100 {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 15px;
+  }
+  
+  .login100-form {
+    padding: 30px 25px;
+  }
+  
+  .login100-form-title {
+    font-size: 28px;
+  }
+  
   .alert-validate::before {
     visibility: visible;
     opacity: 1;
+    position: relative;
+    max-width: 100%;
+    right: auto;
+    top: auto;
+    transform: none;
+    margin-top: 8px;
+    display: block;
   }
 }
 
+@media (max-width: 480px) {
+  .login100-form-title {
+    font-size: 24px;
+  }
+  
+  .input100 {
+    font-size: 14px;
+    padding: 0 15px 0 40px;
+  }
+  
+  .login100-form-btn {
+    font-size: 14px;
+    height: 55px;
+  }
+}
 
-/*//////////////////////////////////////////////////////////////////
-[ Responsive ]*/
+/* ==========================================
+   ANIMACIONES ADICIONALES
+   ========================================== */
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wrap-login100 {
+  animation: slideInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efecto ripple para el botón */
+.login100-form-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.login100-form-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.login100-form-btn:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* ==========================================
+   MODO OSCURO (OPCIONAL)
+   ========================================== */
+
+@media (prefers-color-scheme: dark) {
+  .wrap-login100 {
+    background: rgba(31, 41, 55, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .login100-form-title {
+    color: #f9fafb;
+  }
+  
+  .wrap-input100 {
+    background: #374151;
+    border-color: #4b5563;
+  }
+  
+  .wrap-input100:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+  }
+  
+  .input100 {
+    color: #f9fafb;
+  }
+  
+  .input100::placeholder {
+    color: #9ca3af;
+  }
+}
