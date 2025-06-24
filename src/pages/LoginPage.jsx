@@ -8,11 +8,11 @@ export const LoginPage = () => {
     const {login} = useContext(AuthContext);
 
     const [form, setFrom] = useState({
-        email: 'rosem@gmail.com',
+        email: 'juan@gmail.com',
         password: 'Leyendas13',
         rememberme: false
     });
-    
+    //  'rosem@gmail.com',
     useEffect(() => {
         const email = localStorage.getItem('email');
         if( email ) {

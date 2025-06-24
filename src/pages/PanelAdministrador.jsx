@@ -25,15 +25,15 @@ export const PanelAdministrador = () => {
       submenu: [
         { id: 'products-list', name: 'Ver Productos', icon: '📋', path: '/productos' },
         { id: 'products-create', name: 'Movimiento', icon: '📦', path: '/movimiento' },
-        { id: 'products-categories', name: 'Categorías', icon: '🏷️' },
-        { id: 'products-inventory', name: 'Inventario', icon: '📊' }
+        { id: 'products-categories', name: 'Ventas', icon: '🏷️',path: '/venta' },
+        { id: 'products-inventory', name: 'Inventario', icon: '📊',path: '/inventario' }
       ]
     },
-    { id: 'orders', name: 'Pedidos', icon: '🛒' },
-    { id: 'analytics', name: 'Analytics', icon: '📈' },
-    { id: 'settings', name: 'Configuración', icon: '⚙️' },
-    { id: 'reports', name: 'Reportes', icon: '📋' },
-    { id: 'notifications', name: 'Notificaciones', icon: '🔔' },
+    { id: 'orders', name: 'Reportes', icon: '⚙️' ,path: '/reporte'},
+    // { id: 'analytics', name: 'Analytics', icon: '📈' },
+    // { id: 'settings', name: 'Configuración', icon: '⚙️' },
+    // { id: 'reports', name: 'Reportes', icon: '📋' },
+    // { id: 'notifications', name: 'Notificaciones', icon: '🔔' },
   ];
 
   const handleMenuClick = (item) => {

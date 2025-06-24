@@ -5,10 +5,13 @@ import { FormularioUsuario } from '../components/Dashboard/FormularioUsuario';
 import { FormularioProducto } from '../components/Dashboard/FormularioProducto';
 import { DashboardContent } from '../components/Dashboard/DashboardContainer';
 import { GestionMovimiento } from '../components/Dashboard/GestionMovimiento';
+import { GestionVentas } from '../components/Dashboard/GestionVentas';
+import { GestionInventario } from '../components/Dashboard/GestionInventario';
+import { GestionReportes } from '../components/Dashboard/GestionReportes';
 
 
 export const PrivateRouter = () => {
-  return (
+  return (  
     <Routes>
       {/* Rutas anidadas - PanelAdministrador siempre visible */}
       <Route path="/" element={<PanelAdministrador />}>
@@ -17,6 +20,9 @@ export const PrivateRouter = () => {
         <Route path="productos" element={<FormularioProducto />} />
         <Route path="dashboard" element={<DashboardContent />} />
          <Route path="movimiento" element={<GestionMovimiento />} />
+           <Route path="venta" element={<GestionVentas />} />
+             <Route path="inventario" element={<GestionInventario/>} />
+                  <Route path="reporte" element={<GestionReportes/>} />
       </Route>
       
       {/* Ruta por defecto */}
